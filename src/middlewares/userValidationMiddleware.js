@@ -17,4 +17,5 @@ export function loginValidationMiddleware(req, res, next){
     return res.sendStatus(422);
   }
   next();
+  res.locals.user = req.body
 }

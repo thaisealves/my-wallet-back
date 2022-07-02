@@ -5,9 +5,20 @@ import { v4 as uuid } from "uuid";
 export async function signUp(req, res) {
   const user = req.body;
   const passwordHash = bcrypt.hashSync(user.password, 10);
+  const passConfirmHash = bcrypt.hashSync(user.passConfirm, 10);
+  const email = user.email;
   try {
-    await db.collection("users").insertOne({ ...user, password: passwordHash });
-    res.sendStatus(201);
+    const participantName = await db.collection("users").findOne({ email });
+    if (participantName) {
+      res.status(409).send("E-mail ja utilizado");
+    } else {
+      await db.collection("users").insertOne({
+        ...user,
+        password: passwordHash,
+        passConfirm: passConfirmHash,
+      });
+      res.sendStatus(201);
+    }
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
