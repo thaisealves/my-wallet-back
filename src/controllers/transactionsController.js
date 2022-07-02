@@ -19,6 +19,5 @@ export async function getTransactions(req, res) {
     .collection("transactions")
     .find({ userId: user._id })
     .toArray();
-  console.log(user._id);
   res.status(200).send(userTransactions);
 }
