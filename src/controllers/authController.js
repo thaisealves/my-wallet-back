@@ -40,7 +40,7 @@ export async function signIn(req, res) {
       token,
     });
 
-    res.send(202);
+    res.sendStatus(202);
   } else {
     return res.status(401).send("Email ou senha incorretos");
   }

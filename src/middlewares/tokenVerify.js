@@ -1,4 +1,5 @@
-async function verificaToken(req, res, next) {
+import { db } from "../dbConection/mongo.js";
+export async function verifyToken(req, res, next) {
     const {authorization} = req.headers;
     const token = authorization?.replace("Bearer ", "");
       if (!token) {
