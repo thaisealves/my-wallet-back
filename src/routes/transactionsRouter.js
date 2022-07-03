@@ -5,6 +5,6 @@ import {
   getTransactions,
 } from "../controllers/transactionsController.js";
 const router = Router();
-router.post("/transactions", /* transactionValidationMiddleware, */ postTransactions);
+router.post("/transactions", transactionValidationMiddleware, postTransactions);
 router.get("/transactions", getTransactions);
 export default router;
