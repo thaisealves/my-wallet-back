@@ -31,7 +31,7 @@ export async function deleteTransactions(req, res) {
   const { id } = req.params;
   const transactionFromId = await db
     .collection("transactions")
-    .findOne({ _id: new objectId(idMessages) });
+    .findOne({ _id: new objectId(id) });
 
   if (!transactionFromId) {
     res.sendStatus(404);
