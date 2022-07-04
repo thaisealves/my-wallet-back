@@ -29,11 +29,47 @@ export async function getTransactions(req, res) {
 
 export async function deleteTransactions(req, res) {
   const { id } = req.params;
-  try {
-    await db.collection("transactions").deleteOne({ _id: new objectId(id) });
-    res.sendStatus(204)
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+  const transactionFromId = await db
+    .collection("transactions")
+    .findOne({ _id: new objectId(idMessages) });
+
+  if (!transactionFromId) {
+    res.sendStatus(404);
+    return;
+  } else {
+    try {
+      await db.collection("transactions").deleteOne({ _id: new objectId(id) });
+      res.sendStatus(204);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  }
+}
+
+export async function putTransactions(req, res) {
+  const { id } = req.params;
+  const transactionFromId = await db
+    .collection("transactions")
+    .findOne({ _id: new objectId(id) });
+
+  if (!transactionFromId) {
+    res.sendStatus(404);
+    return;
+  } else {
+    try {
+      await db.collection("transactions").updateOne(
+        {
+          _id: new objectId(id),
+        },
+        {
+          $set: req.body,
+        }
+      );
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 }
