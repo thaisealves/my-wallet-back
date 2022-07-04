@@ -3,8 +3,11 @@ import { transactionValidationMiddleware } from "../middlewares/transactionValid
 import {
   postTransactions,
   getTransactions,
+  deleteTransactions,
 } from "../controllers/transactionsController.js";
+
 const router = Router();
 router.post("/transactions", transactionValidationMiddleware, postTransactions);
 router.get("/transactions", getTransactions);
+router.delete("/transactions/:id", deleteTransactions);
 export default router;
