@@ -30,6 +30,9 @@ export async function signIn(req, res) {
 
   const user = await db.collection("users").findOne({ email });
 
+  if (!user){
+   return res.status(404).send("Usuário não cadastrado!")
+  }
   if (user && bcrypt.compareSync(password, user.password)) {
     //comparing if the passwords match: the one that was given now and the one on db
     const token = uuid();
