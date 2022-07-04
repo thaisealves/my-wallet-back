@@ -6,6 +6,6 @@ const transactionSchema = joi.object({
     .string()
     .pattern(/^(0|[1-9][0-9]{0,2})(\.\d{3})*(\,\d{1,2})?$/)
     .required(),
-  status: joi.string().valid("enter", "exit").required(),
+  status: joi.string().valid("inflow", "outflow").required(),
 });
 export default transactionSchema;
